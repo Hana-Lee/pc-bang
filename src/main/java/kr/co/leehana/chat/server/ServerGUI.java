@@ -1,4 +1,4 @@
-package kr.co.leehana.chat.client;
+package kr.co.leehana.chat.server;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,14 +7,14 @@ import java.awt.*;
  * @author Hana Lee
  * @since 2015-11-13 16-01
  */
-public class ClientGui extends JFrame {
+public class ServerGui extends JFrame {
 
-	private static final long serialVersionUID = -2274895343413023374L;
+	private static final long serialVersionUID = 477016551457497985L;
 
-	public ClientGui() {
+	public ServerGui() {
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		setBounds(800, 100, 400, 600);
-		setTitle("클라이언트 부분");
+		setBounds(400, 100, 400, 600);
+		setTitle("서버 부분");
 
 		final JTextArea msgArea = new JTextArea(40, 25);
 		final JTextField msgField = new JTextField(25);
@@ -32,6 +32,6 @@ public class ClientGui extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new ClientGui();
+		new ServerGui();
 	}
 }

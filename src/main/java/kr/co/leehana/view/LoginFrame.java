@@ -12,6 +12,8 @@ import java.io.IOException;
  */
 public class LoginFrame extends JFrame {
 
+	private static final long serialVersionUID = 5698722518547635432L;
+
 	private BufferedImage loginMainImg;
 	private final int width = 1600;
 	private final int height = 900;
