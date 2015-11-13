@@ -67,7 +67,6 @@ public class ManageView extends JFrame {
 		setLocation((windowSize.width - frameSize.width) / 2, (windowSize.height - frameSize.height) / 2);
 	}
 
-
 	public static void main(String[] args) {
 		new ManageView();
 	}

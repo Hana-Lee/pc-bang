@@ -1,5 +1,7 @@
 package kr.co.leehana.view;
 
+import kr.co.leehana.Utils.ResourceUtils;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -23,10 +25,9 @@ public class SeatViewTest extends JFrame {
 	}
 
 	class MainPanel extends JPanel {
-		private Image image;
+		private final Image image = ResourceUtils.getImage("gameOff.png");
 
 		public MainPanel() {
-			image = Toolkit.getDefaultToolkit().createImage(SeatViewTest.class.getResource("/img/gameOff.png"));
 		}
 
 		@Override

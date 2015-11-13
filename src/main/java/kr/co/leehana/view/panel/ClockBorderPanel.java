@@ -1,6 +1,6 @@
 package kr.co.leehana.view.panel;
 
-import kr.co.leehana.view.ManageView;
+import kr.co.leehana.Utils.ResourceUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,12 +11,9 @@ import java.awt.*;
  */
 public class ClockBorderPanel extends JPanel implements Runnable {
 
-	private final Image clockBorderImage1 = Toolkit.getDefaultToolkit().createImage(ManageView.class.getResource
-			("/img/cl1.png"));
-	private final Image clockBorderImage2 = Toolkit.getDefaultToolkit().createImage(ManageView.class.getResource
-			("/img/cl2.png"));
-	private final Image clockBorderImage3 = Toolkit.getDefaultToolkit().createImage(ManageView.class.getResource
-			("/img/cl3.png"));
+	private final Image clockBorderImage1 = ResourceUtils.getImage("cl1.png");
+	private final Image clockBorderImage2 = ResourceUtils.getImage("cl2.png");
+	private final Image clockBorderImage3 = ResourceUtils.getImage("cl3.png");
 
 	private Image[] images = {clockBorderImage1, clockBorderImage2, clockBorderImage3};
 	private int imageIndex = 0;

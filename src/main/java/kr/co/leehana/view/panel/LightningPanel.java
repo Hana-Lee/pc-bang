@@ -1,5 +1,6 @@
 package kr.co.leehana.view.panel;
 
+import kr.co.leehana.Utils.ResourceUtils;
 import kr.co.leehana.view.ManageView;
 
 import javax.swing.*;
@@ -11,12 +12,11 @@ import java.awt.*;
  */
 public class LightningPanel extends JPanel implements Runnable {
 
-	private Image lightImage;
+	private final Image lightImage = ResourceUtils.getImage("starDdong.png");
 	private int sx = 77;
 	private int sy = 0;
 
 	public LightningPanel() {
-		lightImage = Toolkit.getDefaultToolkit().createImage(ManageView.class.getResource("/img/starDdong.png"));
 	}
 
 	@Override
