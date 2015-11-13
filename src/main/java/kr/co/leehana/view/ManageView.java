@@ -17,11 +17,28 @@ public class ManageView extends JFrame {
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setSize(width, height);
 		setTitle("관리 화면");
+		setLayout(null);
 
 		setCenterLocation();
 
+		JLayeredPane layeredPane = new JLayeredPane();
+		layeredPane.setBounds(0, 0, width, height);
+		layeredPane.setLayout(null);
+
 		JPanel mainPanel = new MainPanel();
-		add(mainPanel, BorderLayout.CENTER);
+		mainPanel.setLayout(null);
+		mainPanel.setBounds(0, -30, width, height);
+
+		ClockPanel clockPanel = new ClockPanel();
+		clockPanel.setLayout(null);
+		clockPanel.setBounds(15, 20, 179, 149);
+		clockPanel.setOpaque(false);
+		new Thread(clockPanel).start();
+
+		layeredPane.add(mainPanel, new Integer(0));
+		layeredPane.add(clockPanel, new Integer(1));
+
+		add(layeredPane);
 
 		setVisible(true);
 	}
@@ -47,6 +64,54 @@ public class ManageView extends JFrame {
 		@Override
 		public void update(Graphics g) {
 			super.update(g);
+		}
+	}
+
+	class ClockPanel extends JPanel implements Runnable {
+
+		private Image[] images = new Image[4];
+		private int i = 1;
+
+		public ClockPanel() {
+			images[1] = Toolkit.getDefaultToolkit().createImage(ManageView.class.getResource("/img/cl1.png"));
+			images[2] = Toolkit.getDefaultToolkit().createImage(ManageView.class.getResource("/img/cl2.png"));
+			images[3] = Toolkit.getDefaultToolkit().createImage(ManageView.class.getResource("/img/cl3.png"));
+
+			images[0] = images[1];
+		}
+
+		@Override
+		public void paint(Graphics g) {
+			g.drawImage(images[0], 0, 0, this);
+		}
+
+		@Override
+		public void run() {
+			while (true) {
+				try {
+					Thread.sleep(10000);
+
+					switch (i) {
+						case 1:
+							images[0] = images[i];
+							i++;
+							repaint();
+							break;
+						case 2:
+							images[0] = images[i];
+							i++;
+							repaint();
+							break;
+						case 3:
+							images[0] = images[i];
+							i = 1;
+							repaint();
+							break;
+					}
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
