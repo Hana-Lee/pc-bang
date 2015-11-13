@@ -1,5 +1,8 @@
 package kr.co.leehana.chat.server;
 
+import java.io.DataInputStream;
+import java.io.DataOutput;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -11,6 +14,8 @@ import java.net.Socket;
 public class ServerBackground {
 	private ServerSocket serverSocket;
 	private Socket socket;
+	private DataInputStream dataInputStream;
+	private DataOutputStream dataOutputStream;
 
 	public void setting() {
 		try {
@@ -19,6 +24,12 @@ public class ServerBackground {
 			System.out.println("서버 대기중...");
 			socket = serverSocket.accept();
 			System.out.println(socket.getInetAddress() + " 에서 접속 하였습니다.");
+
+			dataOutputStream = new DataOutputStream(socket.getOutputStream());
+			dataInputStream = new DataInputStream(socket.getInputStream());
+
+			String clientMsg = dataInputStream.readUTF();
+			System.out.println("클라이언트가 보낸 메세지 : " + clientMsg);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
