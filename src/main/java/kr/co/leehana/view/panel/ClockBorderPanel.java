@@ -11,45 +11,35 @@ import java.awt.*;
  */
 public class ClockBorderPanel extends JPanel implements Runnable {
 
-	private Image[] images = new Image[4];
-	private int i = 1;
+	private final Image clockBorderImage1 = Toolkit.getDefaultToolkit().createImage(ManageView.class.getResource
+			("/img/cl1.png"));
+	private final Image clockBorderImage2 = Toolkit.getDefaultToolkit().createImage(ManageView.class.getResource
+			("/img/cl2.png"));
+	private final Image clockBorderImage3 = Toolkit.getDefaultToolkit().createImage(ManageView.class.getResource
+			("/img/cl3.png"));
+
+	private Image[] images = {clockBorderImage1, clockBorderImage2, clockBorderImage3};
+	private int imageIndex = 0;
 
 	public ClockBorderPanel() {
-		images[1] = Toolkit.getDefaultToolkit().createImage(ManageView.class.getResource("/img/cl1.png"));
-		images[2] = Toolkit.getDefaultToolkit().createImage(ManageView.class.getResource("/img/cl2.png"));
-		images[3] = Toolkit.getDefaultToolkit().createImage(ManageView.class.getResource("/img/cl3.png"));
-
-		images[0] = images[1];
 	}
 
 	@Override
 	public void paint(Graphics g) {
-		g.drawImage(images[0], 0, 0, this);
+		g.drawImage(images[imageIndex], 0, 0, this);
 	}
 
 	@Override
 	public void run() {
 		while (true) {
 			try {
-				Thread.sleep(10000);
-
-				switch (i) {
-					case 1:
-						images[0] = images[i];
-						i++;
-						repaint();
-						break;
-					case 2:
-						images[0] = images[i];
-						i++;
-						repaint();
-						break;
-					case 3:
-						images[0] = images[i];
-						i = 1;
-						repaint();
-						break;
+				Thread.sleep(1000);
+				if (imageIndex == 2) {
+					imageIndex = 0;
+				} else {
+					imageIndex++;
 				}
+				repaint();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
