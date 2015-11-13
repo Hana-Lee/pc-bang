@@ -2,6 +2,7 @@ package kr.co.leehana.view.panel;
 
 import kr.co.leehana.Utils.ResourceUtils;
 import kr.co.leehana.view.ManageView;
+import lombok.Getter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,13 +11,19 @@ import java.awt.*;
  * @author Hana Lee
  * @since 2015-11-14 00-31
  */
-public class LightningPanel extends JPanel implements Runnable {
+public class LightningPanel extends JPanel implements Runnable, ConstraintPanel {
+
+	private static final long serialVersionUID = 4762356404013590582L;
 
 	private final Image lightImage = ResourceUtils.getImage("starDdong.png");
 	private int sx = 77;
 	private int sy = 0;
 
-	public LightningPanel() {
+	@Getter
+	private Object constrains;
+
+	public LightningPanel(Object constrains) {
+		this.constrains = constrains;
 	}
 
 	@Override

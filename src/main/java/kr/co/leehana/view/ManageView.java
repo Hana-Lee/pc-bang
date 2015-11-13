@@ -2,6 +2,7 @@ package kr.co.leehana.view;
 
 import kr.co.leehana.view.panel.ClockBorderPanel;
 import kr.co.leehana.view.panel.ClockMessage;
+import kr.co.leehana.view.panel.ConstraintPanel;
 import kr.co.leehana.view.panel.LightningPanel;
 import kr.co.leehana.view.panel.ManageViewMainPanel;
 
@@ -27,37 +28,28 @@ public class ManageView extends JFrame {
 		setCenterLocation();
 
 		JLayeredPane layeredPane = new JLayeredPane();
-		System.out.println(layeredPane.isOpaque());
-		setupPanel(layeredPane, new Rectangle(0, 0, width, height));
+		layeredPane.setLayout(null);
+		layeredPane.setBounds(new Rectangle(0, 0, width, height));
 
-		JPanel mainPanel = new ManageViewMainPanel();
+		ConstraintPanel mainPanel = new ManageViewMainPanel(0);
 		setupPanel(mainPanel, new Rectangle(0, -30, width, height));
 
-		ClockBorderPanel clockPanel = new ClockBorderPanel();
+		ConstraintPanel clockPanel = new ClockBorderPanel(3);
 		setupPanel(clockPanel, new Rectangle(15, 20, 179, 149));
 
-		ClockMessage clockMessage = new ClockMessage();
+		ConstraintPanel clockMessage = new ClockMessage(4);
 		setupPanel(clockMessage, new Rectangle(80, 53, 100, 100));
 
-		LightningPanel lightningPanel = new LightningPanel();
+		ConstraintPanel lightningPanel = new LightningPanel(1);
 		setupPanel(lightningPanel, new Rectangle(0, -30, width, height));
 
 		startThread(clockPanel, clockMessage, lightningPanel);
 
-		layeredPane.add(mainPanel, new Integer(0));
-		layeredPane.add(clockPanel, new Integer(3));
-		layeredPane.add(clockMessage, new Integer(4));
-		layeredPane.add(lightningPanel, new Integer(1));
+		addToLayeredPanel(layeredPane, mainPanel, clockPanel, clockMessage, lightningPanel);
 
 		add(layeredPane);
 
 		setVisible(true);
-	}
-
-	private void startThread(Runnable... runnableArray) {
-		for (Runnable runnable : runnableArray) {
-			new Thread(runnable).start();
-		}
 	}
 
 	private void setCenterLocation() {
@@ -66,10 +58,23 @@ public class ManageView extends JFrame {
 		setLocation((windowSize.width - frameSize.width) / 2, (windowSize.height - frameSize.height) / 2);
 	}
 
-	private void setupPanel(JComponent component, Rectangle rectangle) {
-		component.setLayout(null);
-		component.setOpaque(false);
-		component.setBounds(rectangle);
+	private void setupPanel(ConstraintPanel panel, Rectangle rectangle) {
+		((JComponent) panel).setLayout(null);
+		((JComponent) panel).setOpaque(false);
+		((JComponent) panel).setBounds(rectangle);
+	}
+
+	private void startThread(ConstraintPanel... panels) {
+		for (ConstraintPanel panel : panels) {
+			new Thread((Runnable) panel).start();
+		}
+	}
+
+	private void addToLayeredPanel(JLayeredPane layeredPane, ConstraintPanel... panels) {
+		for (ConstraintPanel panel : panels) {
+			layeredPane.add((Component) panel, panel.getConstrains());
+		}
+
 	}
 
 	public static void main(String[] args) {

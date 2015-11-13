@@ -1,5 +1,7 @@
 package kr.co.leehana.view.panel;
 
+import lombok.Getter;
+
 import javax.swing.*;
 import java.awt.*;
 import java.text.SimpleDateFormat;
@@ -10,7 +12,9 @@ import java.util.Date;
  * @author Hana Lee
  * @since 2015-11-14 00-33
  */
-public class ClockMessage extends JPanel implements Runnable {
+public class ClockMessage extends JPanel implements Runnable, ConstraintPanel {
+
+	private static final long serialVersionUID = 4229956466801191893L;
 
 	private int ampmCode = Calendar.getInstance().get(Calendar.AM_PM);
 	private String[] ampmValues = {"AM", "PM"};
@@ -18,7 +22,11 @@ public class ClockMessage extends JPanel implements Runnable {
 	private JLabel timeLabel;
 	private JLabel ampmLabel;
 
-	public ClockMessage() {
+	@Getter
+	private Object constrains;
+
+	public ClockMessage(Object constrains) {
+		this.constrains = constrains;
 		init();
 	}
 
