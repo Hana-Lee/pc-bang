@@ -24,7 +24,7 @@ public class ServerGui extends JFrame {
 
 		msgField.addActionListener((e) -> {
 			String msg = msgField.getText() + "\n";
-			msgArea.append(msg);
+			msgArea.append("서버 : " + msg);
 			msgField.setText("");
 
 			serverBackground.sendMessage(msg);
@@ -43,6 +43,6 @@ public class ServerGui extends JFrame {
 	}
 
 	public void appendMessage(String clientMsg) {
-		msgArea.append(clientMsg);
+		msgArea.append("클라이언트 : " + clientMsg);
 	}
 }
