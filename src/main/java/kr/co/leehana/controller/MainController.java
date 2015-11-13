@@ -1,5 +1,6 @@
 package kr.co.leehana.controller;
 
+import kr.co.leehana.service.MemberServiceImpl;
 import kr.co.leehana.view.LoginFrame;
 import kr.co.leehana.view.ManageView;
 
@@ -9,7 +10,14 @@ import kr.co.leehana.view.ManageView;
  */
 public class MainController {
 
-	private LoginFrame loginFrame;
 	private ManageView manageView;
 
+	public static void main(String[] args) {
+		MainController controller = new MainController();
+		LoginFrame loginFrame = new LoginFrame(controller, new LoginController(new MemberServiceImpl()));
+	}
+
+	private void showManageView() {
+		new ManageView();
+	}
 }
