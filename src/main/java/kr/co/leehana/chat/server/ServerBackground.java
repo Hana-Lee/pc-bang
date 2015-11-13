@@ -16,6 +16,7 @@ public class ServerBackground {
 	private DataInputStream dataInputStream;
 	private DataOutputStream dataOutputStream;
 	private ServerGui serverGui;
+	private String clientMsg;
 
 	public ServerBackground(ServerGui serverGui) {
 		this.serverGui = serverGui;
@@ -32,10 +33,10 @@ public class ServerBackground {
 			dataOutputStream = new DataOutputStream(socket.getOutputStream());
 			dataInputStream = new DataInputStream(socket.getInputStream());
 
-			String clientMsg = dataInputStream.readUTF();
-			System.out.println("클라이언트가 보낸 메세지 : " + clientMsg);
-
-			serverGui.appendMessage(clientMsg);
+			while (dataInputStream != null) {
+				clientMsg = dataInputStream.readUTF();
+				serverGui.appendMessage(clientMsg);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

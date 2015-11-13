@@ -26,6 +26,8 @@ public class ServerGui extends JFrame {
 			String msg = msgField.getText() + "\n";
 			msgArea.append(msg);
 			msgField.setText("");
+
+			serverBackground.sendMessage(msg);
 		});
 
 		add(msgArea, BorderLayout.CENTER);
@@ -40,7 +42,7 @@ public class ServerGui extends JFrame {
 		new ServerGui();
 	}
 
-	public void appendMsg(String clientMsg) {
+	public void appendMessage(String clientMsg) {
 		msgArea.append(clientMsg);
 	}
 }
