@@ -3,6 +3,7 @@ package kr.co.leehana.view;
 import kr.co.leehana.view.panel.ClockBorderPanel;
 import kr.co.leehana.view.panel.ClockMessage;
 import kr.co.leehana.view.panel.LightningPanel;
+import kr.co.leehana.view.panel.ManageViewMainPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,7 +30,7 @@ public class ManageView extends JFrame {
 		layeredPane.setBounds(0, 0, width, height);
 		layeredPane.setLayout(null);
 
-		JPanel mainPanel = new MainPanel();
+		JPanel mainPanel = new ManageViewMainPanel();
 		mainPanel.setLayout(null);
 		mainPanel.setBounds(0, -30, width, height);
 
@@ -64,24 +65,6 @@ public class ManageView extends JFrame {
 		Dimension frameSize = this.getSize();
 		Dimension windowSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation((windowSize.width - frameSize.width) / 2, (windowSize.height - frameSize.height) / 2);
-	}
-
-	class MainPanel extends JPanel {
-		private Image image;
-
-		public MainPanel() {
-			image = Toolkit.getDefaultToolkit().createImage(ManageView.class.getResource("/img/mainHud_back.png"));
-		}
-
-		@Override
-		public void paint(Graphics g) {
-			g.drawImage(image, 0, 0, this);
-		}
-
-		@Override
-		public void update(Graphics g) {
-			super.update(g);
-		}
 	}
 
 
