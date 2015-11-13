@@ -11,6 +11,8 @@ public class ClientGui extends JFrame {
 
 	private static final long serialVersionUID = -2274895343413023374L;
 
+	private ClientBackground clientBackground = new ClientBackground(this);
+
 	public ClientGui() {
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(800, 100, 400, 600);
@@ -29,6 +31,8 @@ public class ClientGui extends JFrame {
 		add(msgField, BorderLayout.SOUTH);
 
 		setVisible(true);
+
+		clientBackground.connect();
 	}
 
 	public static void main(String[] args) {

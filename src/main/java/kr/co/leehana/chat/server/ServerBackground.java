@@ -1,7 +1,6 @@
 package kr.co.leehana.chat.server;
 
 import java.io.DataInputStream;
-import java.io.DataOutput;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -16,6 +15,11 @@ public class ServerBackground {
 	private Socket socket;
 	private DataInputStream dataInputStream;
 	private DataOutputStream dataOutputStream;
+	private ServerGui serverGui;
+
+	public ServerBackground(ServerGui serverGui) {
+		this.serverGui = serverGui;
+	}
 
 	public void setting() {
 		try {
@@ -30,13 +34,15 @@ public class ServerBackground {
 
 			String clientMsg = dataInputStream.readUTF();
 			System.out.println("클라이언트가 보낸 메세지 : " + clientMsg);
+
+			serverGui.appendMsg(clientMsg);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public static void main(String[] args) {
-		ServerBackground serverBackground = new ServerBackground();
+		ServerBackground serverBackground = new ServerBackground(null);
 		serverBackground.setting();
 	}
 }

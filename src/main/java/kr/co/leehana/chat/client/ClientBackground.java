@@ -14,6 +14,11 @@ public class ClientBackground {
 	private Socket socket;
 	private DataInputStream dataInputStream;
 	private DataOutputStream dataOutputStream;
+	private ClientGui clientGui;
+
+	public ClientBackground(ClientGui clientGui) {
+		this.clientGui = clientGui;
+	}
 
 	public void connect() {
 		try {
@@ -31,7 +36,7 @@ public class ClientBackground {
 	}
 
 	public static void main(String[] args) {
-		ClientBackground clientBackground = new ClientBackground();
+		ClientBackground clientBackground = new ClientBackground(null);
 		clientBackground.connect();
 	}
 }
