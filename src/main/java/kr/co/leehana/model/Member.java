@@ -8,10 +8,12 @@ import lombok.Data;
  */
 @Data
 public class Member {
+	private long id;
 	private int num;
-	private String id;
+	private String userId;
 	private String password;
-	private int age;
 	private int mileage;
+	private String fullName;
+	private int age;
 	private String phone;
 }
