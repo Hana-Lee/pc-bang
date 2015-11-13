@@ -35,7 +35,7 @@ public class ServerBackground {
 			String clientMsg = dataInputStream.readUTF();
 			System.out.println("클라이언트가 보낸 메세지 : " + clientMsg);
 
-			serverGui.appendMsg(clientMsg);
+			serverGui.appendMessage(clientMsg);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -44,5 +44,13 @@ public class ServerBackground {
 	public static void main(String[] args) {
 		ServerBackground serverBackground = new ServerBackground(null);
 		serverBackground.setting();
+	}
+
+	public void sendMessage(String msg) {
+		try {
+			dataOutputStream.writeUTF(msg);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

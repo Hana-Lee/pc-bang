@@ -15,6 +15,7 @@ public class ClientBackground {
 	private DataInputStream dataInputStream;
 	private DataOutputStream dataOutputStream;
 	private ClientGui clientGui;
+	private String serverMsg;
 
 	public ClientBackground(ClientGui clientGui) {
 		this.clientGui = clientGui;
@@ -30,6 +31,11 @@ public class ClientBackground {
 
 			dataOutputStream.writeUTF("클라이언트 에서 메세지 보냄.");
 			System.out.println("메세지 전송 완료");
+
+			while (dataInputStream != null) {
+				serverMsg = dataInputStream.readUTF();
+				clientGui.appendMessage(serverMsg);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

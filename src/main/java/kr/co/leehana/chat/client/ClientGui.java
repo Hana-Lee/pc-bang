@@ -12,13 +12,14 @@ public class ClientGui extends JFrame {
 	private static final long serialVersionUID = -2274895343413023374L;
 
 	private ClientBackground clientBackground = new ClientBackground(this);
+	private JTextArea msgArea;
 
 	public ClientGui() {
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(800, 100, 400, 600);
 		setTitle("클라이언트 부분");
 
-		final JTextArea msgArea = new JTextArea(40, 25);
+		msgArea = new JTextArea(40, 25);
 		final JTextField msgField = new JTextField(25);
 
 		msgField.addActionListener((e) -> {
@@ -37,5 +38,9 @@ public class ClientGui extends JFrame {
 
 	public static void main(String[] args) {
 		new ClientGui();
+	}
+
+	public void appendMessage(String serverMsg) {
+		msgArea.append(serverMsg);
 	}
 }
