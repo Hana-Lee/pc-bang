@@ -1,5 +1,7 @@
 package kr.co.leehana.view;
 
+import kr.co.leehana.view.panel.LightningPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.text.SimpleDateFormat;
@@ -33,7 +35,7 @@ public class ManageView extends JFrame {
 		mainPanel.setBounds(0, -30, width, height);
 
 		ClockPanel clockPanel = new ClockPanel();
-		clockPanel.setLayout(null);
+//		clockPanel.setLayout(null);
 		clockPanel.setBounds(15, 20, 179, 149);
 		clockPanel.setOpaque(false);
 		new Thread(clockPanel).start();
@@ -43,9 +45,16 @@ public class ManageView extends JFrame {
 		clockMessage.setOpaque(false);
 		new Thread(clockMessage).start();
 
+		LightningPanel lightningPanel = new LightningPanel();
+//		lightningPanel.setLayout(null);
+		lightningPanel.setBounds(0, -30, width, height);
+		lightningPanel.setOpaque(false);
+		new Thread(lightningPanel).start();
+
 		layeredPane.add(mainPanel, new Integer(0));
-		layeredPane.add(clockPanel, new Integer(1));
-		layeredPane.add(clockMessage, new Integer(2));
+		layeredPane.add(clockPanel, new Integer(3));
+		layeredPane.add(clockMessage, new Integer(4));
+		layeredPane.add(lightningPanel, new Integer(1));
 
 		add(layeredPane);
 
