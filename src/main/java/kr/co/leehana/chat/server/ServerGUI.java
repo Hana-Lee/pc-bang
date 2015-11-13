@@ -11,12 +11,15 @@ public class ServerGui extends JFrame {
 
 	private static final long serialVersionUID = 477016551457497985L;
 
+	private ServerBackground serverBackground = new ServerBackground(this);
+	private JTextArea msgArea;
+
 	public ServerGui() {
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(400, 100, 400, 600);
 		setTitle("서버 부분");
 
-		final JTextArea msgArea = new JTextArea(40, 25);
+		msgArea = new JTextArea(40, 25);
 		final JTextField msgField = new JTextField(25);
 
 		msgField.addActionListener((e) -> {
@@ -29,9 +32,15 @@ public class ServerGui extends JFrame {
 		add(msgField, BorderLayout.SOUTH);
 
 		setVisible(true);
+
+		serverBackground.setting();
 	}
 
 	public static void main(String[] args) {
 		new ServerGui();
+	}
+
+	public void appendMsg(String clientMsg) {
+		msgArea.append(clientMsg);
 	}
 }
