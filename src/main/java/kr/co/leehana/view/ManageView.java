@@ -31,24 +31,18 @@ public class ManageView extends JFrame {
 		layeredPane.setLayout(null);
 
 		JPanel mainPanel = new ManageViewMainPanel();
-		mainPanel.setLayout(null);
-		mainPanel.setBounds(0, -30, width, height);
+		setupPanel(mainPanel, new Rectangle(0, -30, width, height));
 
 		ClockBorderPanel clockPanel = new ClockBorderPanel();
-//		clockPanel.setLayout(null);
-		clockPanel.setBounds(15, 20, 179, 149);
-		clockPanel.setOpaque(false);
+		setupPanel(clockPanel, new Rectangle(15, 20, 179, 149));
 		new Thread(clockPanel).start();
 
 		ClockMessage clockMessage = new ClockMessage();
-		clockMessage.setBounds(80, 53, 100, 100);
-		clockMessage.setOpaque(false);
+		setupPanel(clockMessage, new Rectangle(80, 53, 100, 100));
 		new Thread(clockMessage).start();
 
 		LightningPanel lightningPanel = new LightningPanel();
-//		lightningPanel.setLayout(null);
-		lightningPanel.setBounds(0, -30, width, height);
-		lightningPanel.setOpaque(false);
+		setupPanel(lightningPanel, new Rectangle(0, -30, width, height));
 		new Thread(lightningPanel).start();
 
 		layeredPane.add(mainPanel, new Integer(0));
@@ -65,6 +59,12 @@ public class ManageView extends JFrame {
 		Dimension frameSize = this.getSize();
 		Dimension windowSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation((windowSize.width - frameSize.width) / 2, (windowSize.height - frameSize.height) / 2);
+	}
+
+	private void setupPanel(JPanel panel, Rectangle rectangle) {
+		panel.setLayout(null);
+		panel.setOpaque(false);
+		panel.setBounds(rectangle);
 	}
 
 	public static void main(String[] args) {
