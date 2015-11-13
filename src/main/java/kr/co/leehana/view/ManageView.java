@@ -27,23 +27,22 @@ public class ManageView extends JFrame {
 		setCenterLocation();
 
 		JLayeredPane layeredPane = new JLayeredPane();
-		layeredPane.setBounds(0, 0, width, height);
-		layeredPane.setLayout(null);
+		System.out.println(layeredPane.isOpaque());
+		setupPanel(layeredPane, new Rectangle(0, 0, width, height));
 
 		JPanel mainPanel = new ManageViewMainPanel();
 		setupPanel(mainPanel, new Rectangle(0, -30, width, height));
 
 		ClockBorderPanel clockPanel = new ClockBorderPanel();
 		setupPanel(clockPanel, new Rectangle(15, 20, 179, 149));
-		new Thread(clockPanel).start();
 
 		ClockMessage clockMessage = new ClockMessage();
 		setupPanel(clockMessage, new Rectangle(80, 53, 100, 100));
-		new Thread(clockMessage).start();
 
 		LightningPanel lightningPanel = new LightningPanel();
 		setupPanel(lightningPanel, new Rectangle(0, -30, width, height));
-		new Thread(lightningPanel).start();
+
+		startThread(clockPanel, clockMessage, lightningPanel);
 
 		layeredPane.add(mainPanel, new Integer(0));
 		layeredPane.add(clockPanel, new Integer(3));
@@ -55,16 +54,22 @@ public class ManageView extends JFrame {
 		setVisible(true);
 	}
 
+	private void startThread(Runnable... runnableArray) {
+		for (Runnable runnable : runnableArray) {
+			new Thread(runnable).start();
+		}
+	}
+
 	private void setCenterLocation() {
 		Dimension frameSize = this.getSize();
 		Dimension windowSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation((windowSize.width - frameSize.width) / 2, (windowSize.height - frameSize.height) / 2);
 	}
 
-	private void setupPanel(JPanel panel, Rectangle rectangle) {
-		panel.setLayout(null);
-		panel.setOpaque(false);
-		panel.setBounds(rectangle);
+	private void setupPanel(JComponent component, Rectangle rectangle) {
+		component.setLayout(null);
+		component.setOpaque(false);
+		component.setBounds(rectangle);
 	}
 
 	public static void main(String[] args) {
