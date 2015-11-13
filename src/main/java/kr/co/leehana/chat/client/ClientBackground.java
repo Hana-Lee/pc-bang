@@ -16,6 +16,7 @@ public class ClientBackground {
 	private DataOutputStream dataOutputStream;
 	private ClientGui clientGui;
 	private String serverMsg;
+	private String nickName;
 
 	public ClientBackground(ClientGui clientGui) {
 		this.clientGui = clientGui;
@@ -28,6 +29,9 @@ public class ClientBackground {
 
 			dataOutputStream = new DataOutputStream(socket.getOutputStream());
 			dataInputStream = new DataInputStream(socket.getInputStream());
+
+			// 클라가 접속하자마자 닉네임을 서버에 전달하면 서버의 클라맵에 저장.
+			dataOutputStream.writeUTF(nickName);
 
 			while (dataInputStream != null) {
 				serverMsg = dataInputStream.readUTF();
@@ -49,5 +53,9 @@ public class ClientBackground {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 }

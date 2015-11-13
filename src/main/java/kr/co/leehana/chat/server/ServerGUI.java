@@ -42,7 +42,7 @@ public class ServerGui extends JFrame {
 		new ServerGui();
 	}
 
-	public void appendMessage(String clientMsg) {
-		msgArea.append("클라이언트 : " + clientMsg);
+	public void appendMessage(String nickName, String clientMsg) {
+		msgArea.append(nickName + " : " + clientMsg);
 	}
 }

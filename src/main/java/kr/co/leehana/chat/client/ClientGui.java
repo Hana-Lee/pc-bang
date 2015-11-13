@@ -2,6 +2,7 @@ package kr.co.leehana.chat.client;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Scanner;
 
 /**
  * @author Hana Lee
@@ -13,6 +14,7 @@ public class ClientGui extends JFrame {
 
 	private ClientBackground clientBackground = new ClientBackground(this);
 	private JTextArea msgArea;
+	private static String nickName;
 
 	public ClientGui() {
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -24,7 +26,7 @@ public class ClientGui extends JFrame {
 
 		msgField.addActionListener((e) -> {
 			String msg = msgField.getText() + "\n";
-			msgArea.append("클라이언트 : " + msg);
+			msgArea.append(nickName + " : " + msg);
 			msgField.setText("");
 
 			clientBackground.sendMessage(msg);
@@ -35,10 +37,16 @@ public class ClientGui extends JFrame {
 
 		setVisible(true);
 
+		clientBackground.setNickName(nickName);
 		clientBackground.connect();
 	}
 
 	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+		System.out.println("닉네임 : ");
+		nickName = s.nextLine();
+		s.close();
+
 		new ClientGui();
 	}
 

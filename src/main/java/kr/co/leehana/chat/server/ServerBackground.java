@@ -51,7 +51,7 @@ public class ServerBackground {
 	public void sendMessage(String msg) {
 		for (String nickName : clientsMap.keySet()) {
 			try {
-				clientsMap.get(nickName).writeUTF(nickName + " : " + msg);
+				clientsMap.get(nickName).writeUTF(msg);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -82,8 +82,7 @@ public class ServerBackground {
 			while (dataInputStream != null) {
 				try {
 					clientMsg = dataInputStream.readUTF();
-					sendMessage(clientMsg);
-					serverGui.appendMessage(clientMsg);
+					serverGui.appendMessage(nickName, clientMsg);
 				} catch (IOException e) {
 					e.printStackTrace();
 					removeClient(nickName);
