@@ -1,12 +1,14 @@
 package kr.co.leehana.view;
 
 import kr.co.leehana.Utils.ResourceUtils;
+import kr.co.leehana.controller.LoginController;
+import kr.co.leehana.controller.MainController;
+import kr.co.leehana.service.MemberService;
+import kr.co.leehana.service.MemberServiceImpl;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * @author Hana Lee
@@ -19,12 +21,16 @@ public class LoginFrame extends JFrame {
 	private final Image loginMainImg = ResourceUtils.getImage("login.png");
 	private static final int width = 1600;
 	private static final int height = 900;
+	private MainController mainController;
+	private LoginController loginController;
 
 	public static void main(String[] args) {
-		new LoginFrame();
+		new LoginFrame(null, new LoginController(new MemberServiceImpl()));
 	}
 
-	public LoginFrame() {
+	public LoginFrame(MainController mainController, LoginController loginController) {
+		this.mainController = mainController;
+		this.loginController = loginController;
 		init();
 	}
 
@@ -58,6 +64,26 @@ public class LoginFrame extends JFrame {
 
 		final JButton loginBtn = new JButton(new ImageIcon(ResourceUtils.getImage("btLogin_hud.png")));
 		loginBtn.setBounds(755, 689, 104, 48);
+		loginBtn.addActionListener((e) -> {
+			final String userId = userIdField.getText();
+			final char[] password = passwordField.getPassword();
+
+			System.out.println("User Id : " + userIdField.getText());
+			System.out.println("password : " + Arrays.toString(passwordField.getPassword()));
+
+			if (userId.isEmpty() || password.length == 0) {
+				JOptionPane.showMessageDialog(this, "아이디 또는 비밀번호를 입력해주세요", "경고", JOptionPane.WARNING_MESSAGE);
+			} else {
+				boolean loginCheck = false;
+				try {
+					loginCheck = loginController.loginCheck(userId, new String(password));
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+				System.out.println("Login check : " + loginCheck);
+			}
+
+		});
 
 		loginBtn.setBorderPainted(false);
 		loginBtn.setFocusPainted(false);
