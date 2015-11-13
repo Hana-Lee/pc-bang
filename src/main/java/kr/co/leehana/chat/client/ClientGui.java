@@ -26,6 +26,8 @@ public class ClientGui extends JFrame {
 			String msg = msgField.getText() + "\n";
 			msgArea.append(msg);
 			msgField.setText("");
+
+			clientBackground.sendMessage(msg);
 		});
 
 		add(msgArea, BorderLayout.CENTER);

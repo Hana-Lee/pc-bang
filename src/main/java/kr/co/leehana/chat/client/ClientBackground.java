@@ -45,4 +45,12 @@ public class ClientBackground {
 		ClientBackground clientBackground = new ClientBackground(null);
 		clientBackground.connect();
 	}
+
+	public void sendMessage(String msg) {
+		try {
+			dataOutputStream.writeUTF(msg);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
