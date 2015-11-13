@@ -10,14 +10,16 @@ import kr.co.leehana.view.ManageView;
  */
 public class MainController {
 
-	private ManageView manageView;
+	private static LoginFrame loginFrame;
 
 	public static void main(String[] args) {
 		MainController controller = new MainController();
-		LoginFrame loginFrame = new LoginFrame(controller, new LoginController(new MemberServiceImpl()));
+		loginFrame = new LoginFrame(controller, new LoginController(new MemberServiceImpl()));
 	}
 
-	private void showManageView() {
+	public void showManageView() {
+		loginFrame.dispose();
+
 		new ManageView();
 	}
 }

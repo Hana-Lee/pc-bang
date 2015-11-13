@@ -3,12 +3,10 @@ package kr.co.leehana.view;
 import kr.co.leehana.Utils.ResourceUtils;
 import kr.co.leehana.controller.LoginController;
 import kr.co.leehana.controller.MainController;
-import kr.co.leehana.service.MemberService;
 import kr.co.leehana.service.MemberServiceImpl;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
 
 /**
  * @author Hana Lee
@@ -68,9 +66,6 @@ public class LoginFrame extends JFrame {
 			final String userId = userIdField.getText();
 			final char[] password = passwordField.getPassword();
 
-			System.out.println("User Id : " + userIdField.getText());
-			System.out.println("password : " + Arrays.toString(passwordField.getPassword()));
-
 			if (userId.isEmpty() || password.length == 0) {
 				JOptionPane.showMessageDialog(this, "아이디 또는 비밀번호를 입력해주세요", "경고", JOptionPane.WARNING_MESSAGE);
 			} else {
@@ -80,7 +75,13 @@ public class LoginFrame extends JFrame {
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
-				System.out.println("Login check : " + loginCheck);
+
+				if (loginCheck) {
+					JOptionPane.showMessageDialog(this, "로그인 성공", "정보", JOptionPane.INFORMATION_MESSAGE);
+					mainController.showManageView();
+				} else {
+					JOptionPane.showMessageDialog(this, "로그인 실패", "오류", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 
 		});
