@@ -4,6 +4,8 @@ import kr.co.leehana.view.panel.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * @author Hana Lee
@@ -14,6 +16,9 @@ public class ManageView extends JFrame {
 	private static final long serialVersionUID = -7777187062556506831L;
 	private static final int width = 1600;
 	private static final int height = 900;
+
+	private JPanel[] seatPanels = new SeatPanel[50];
+	private JPanel seatRootPanel = new SeatRootPanel(5);
 
 	public ManageView() {
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -41,21 +46,19 @@ public class ManageView extends JFrame {
 
 		startThread(clockPanel, clockMessage, lightningPanel);
 
-		ConstraintPanel seatPanels = makeSeatPanel();
+		setupPanel((ConstraintPanel) seatRootPanel, new Rectangle(165, 109, 1368, 686));
+		makeSeatPanels();
+		new SeatThread().start();
 
-		addToLayeredPanel(layeredPane, mainPanel, clockPanel, clockMessage, lightningPanel, seatPanels);
+		addToLayeredPanel(layeredPane, mainPanel, clockPanel, clockMessage, lightningPanel, (ConstraintPanel)
+				seatRootPanel);
 
 		add(layeredPane);
 
 		setVisible(true);
 	}
 
-	private ConstraintPanel makeSeatPanel() {
-		JPanel seatRootPanel = new SeatRootPanel(5);
-		seatRootPanel.setLayout(null);
-		seatRootPanel.setOpaque(false);
-		seatRootPanel.setBounds(new Rectangle(165, 109, 1368, 686));
-
+	private void makeSeatPanels() {
 		int seatPositionX = 0;
 		int seatPositionY = 0;
 		for (int seatNumber = 0; seatNumber < 50; seatNumber++) {
@@ -68,9 +71,8 @@ public class ManageView extends JFrame {
 
 			seatPanel.setBounds(new Rectangle(seatPositionX, seatPositionY, 99, 99));
 			seatPositionX += 135;
-			seatRootPanel.add(seatPanel);
+			seatPanels[seatNumber] = seatPanel;
 		}
-		return (ConstraintPanel) seatRootPanel;
 	}
 
 	private void setCenterLocation() {
@@ -95,7 +97,38 @@ public class ManageView extends JFrame {
 		for (ConstraintPanel panel : panels) {
 			layeredPane.add((Component) panel, panel.getConstrains());
 		}
+	}
 
+	class SeatThread extends Thread {
+		@Override
+		public void run() {
+			Set<Integer> randomNumbers = new LinkedHashSet<>();
+
+			while (randomNumbers.size() < 50) {
+				int r = (int) ((Math.random() * 50));
+				randomNumbers.add(r);
+			}
+
+			int tmp = 0;
+
+			try {
+				for (Integer rNumber : randomNumbers) {
+					tmp++;
+
+					if (tmp > 30) {
+						Thread.sleep(5 * rNumber);
+					}
+					if (tmp == 50) {
+						Thread.sleep(1000);
+						System.out.println("50번째 좌석");
+					}
+
+					seatRootPanel.add(seatPanels[rNumber]);
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public static void main(String[] args) {
