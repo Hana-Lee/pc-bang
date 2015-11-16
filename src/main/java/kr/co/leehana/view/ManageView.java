@@ -1,10 +1,6 @@
 package kr.co.leehana.view;
 
-import kr.co.leehana.view.panel.ClockBorderPanel;
-import kr.co.leehana.view.panel.ClockMessage;
-import kr.co.leehana.view.panel.ConstraintPanel;
-import kr.co.leehana.view.panel.LightningPanel;
-import kr.co.leehana.view.panel.ManageViewMainPanel;
+import kr.co.leehana.view.panel.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,11 +41,36 @@ public class ManageView extends JFrame {
 
 		startThread(clockPanel, clockMessage, lightningPanel);
 
-		addToLayeredPanel(layeredPane, mainPanel, clockPanel, clockMessage, lightningPanel);
+		ConstraintPanel seatPanels = makeSeatPanel();
+
+		addToLayeredPanel(layeredPane, mainPanel, clockPanel, clockMessage, lightningPanel, seatPanels);
 
 		add(layeredPane);
 
 		setVisible(true);
+	}
+
+	private ConstraintPanel makeSeatPanel() {
+		JPanel seatRootPanel = new SeatRootPanel(5);
+		seatRootPanel.setLayout(null);
+		seatRootPanel.setOpaque(false);
+		seatRootPanel.setBounds(new Rectangle(165, 109, 1368, 686));
+
+		int seatPositionX = 0;
+		int seatPositionY = 0;
+		for (int seatNumber = 0; seatNumber < 50; seatNumber++) {
+			SeatPanel seatPanel = new SeatPanel(seatNumber);
+
+			if (seatNumber % 10 == 0 && seatNumber != 0) {
+				seatPositionX = 0;
+				seatPositionY += 140;
+			}
+
+			seatPanel.setBounds(new Rectangle(seatPositionX, seatPositionY, 99, 99));
+			seatPositionX += 135;
+			seatRootPanel.add(seatPanel);
+		}
+		return (ConstraintPanel) seatRootPanel;
 	}
 
 	private void setCenterLocation() {
